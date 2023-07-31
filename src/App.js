@@ -3,31 +3,40 @@ import { getAllStarships } from './services/sw-api';
 
 import './App.css';
 import StarWarsCard from './components/card/card.component';
+import Pagination from './components/pagination/pagination.component';
 
 function App() {
 	const [starships, setStarships] = useState(null);
-	const [gotShips, setGotShips] = useState(false);
-  const [showModal, setShowModal] = useState(true);
-
-	const modal = document.querySelector('#myModal');
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  // Handles The Pagination
+  const updatePage = (page) => {
+    if (page !== 'prev' && page !== 'next') setCurrentPage(Number(page))
+    else if (page === 'next' && currentPage <= 4) {
+      let nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+    } else if (currentPage >= 1) {
+      let prevPage = currentPage - 1;
+      setCurrentPage(prevPage)
+    }
+  }
 
 	// API call to get all of the starships upon page load
-	useEffect(() => {
+  useEffect(() => {
+    setStarships(null)
 		async function getShips() {
-			console.log('Fetching...');
 			try {
 				const ships = await getAllStarships(
-					'https://swapi.dev/api/starships'
+					`https://swapi.dev/api/starships/?page=${currentPage}&offset=%24`
 				);
 
 				setStarships(ships);
 			} catch (error) {
-				console.log('Error fetching data');
+				console.log('Error fetching data: ', error);
 			}
 		}
 		getShips();
-	}, []);
-	console.log(starships);
+  }, [currentPage]);
 
 	return (
 		<div className='App'>
@@ -35,15 +44,12 @@ function App() {
 				<h1>STAR WARS STARSHIPS</h1>
 			</header>
 
-			<main>
+      <main>
+        <Pagination updatePage={updatePage} currentpage={currentPage} />
 				<div id='cards'>
 					{starships ? (
 						starships.map(ship => (
-							<StarWarsCard
-								key={ship.name}
-								ship={ship}
-								modal={modal}
-							/>
+							<StarWarsCard key={ship.name} ship={ship} />
 						))
 					) : (
 						<h1>Loading Starships...</h1>

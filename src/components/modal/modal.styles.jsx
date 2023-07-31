@@ -5,16 +5,16 @@ export const ModalOverLay = styled.div`
 	top: 0;
 	left: 0;
 	display: flex;
-	/* display: ${({ show }) => (show ? 'flex' : 'none')}; */
+	/* display: ${({ show }) => (show === 'true' ? 'flex' : 'none')}; */
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 	background-color: rgba(0, 0, 0, 0.9);
 	width: 100vw;
 	height: 100vh;
-	/* height: ${({ show }) => (show ? '100vh' : '0')}; */
-	transform: scale(${({ show }) => (show ? '1' : '0.2')});
-	opacity: ${({ show }) => (show ? '1' : '0')};
+	/* height: ${props => (props.show === 'true' ? '100vh' : '0')}; */
+	transform: scale(${props => (props.show === 'true' ? '1' : '0.1')});
+	opacity: ${props => (props.show === 'true' ? '1' : '0')};
 	overflow: hidden;
 
 	transition: all 0.3s ease-in-out;
@@ -22,19 +22,20 @@ export const ModalOverLay = styled.div`
 `;
 
 export const ModalContent = styled.div`
-	width: 30em;
-	height: 20em;
+	width: 80%;
+	max-width: 30em;
+	/* height: fit-content; */
 	background-color: #2f4f4f;
 	color: white;
 	border-radius: 1em;
-	padding: 1em 2em;
+	padding: 1em 2em 1.5em;
 	display: flex;
 	flex-direction: column;
-	opacity: ${({ show }) => (show ? '1' : '0')};
-	transform: scale(${({ show }) => (show ? '1' : '0.2')});
+	opacity: ${props => (props.show === 'true' ? '1' : '0')};
+	transform: scale(${props => (props.show === 'true' ? '1' : '0.2')});
 
 	transition: all 0.3s ease-in-out;
-	transition-delay: 0.3s;
+	transition-delay: 0.2s;
 
 	hr {
 		margin-bottom: 1em;
@@ -43,6 +44,10 @@ export const ModalContent = styled.div`
 	p {
 		margin-bottom: 0.25em;
 	}
+
+	#info {
+		margin-bottom: 2em;
+	}
 `;
 
 export const ModalButton = styled.button`
@@ -50,6 +55,6 @@ export const ModalButton = styled.button`
 	/* width: fit-content; */
 	padding: 0.5em;
 	border-radius: 0.5em;
-	top: ${({ ship }) => (ship.name === 'Death Star' ? '5em' : '7em')};
+	/* top: ${props => (props.ship.name === 'Death Star' ? '5em' : '7em')}; */
 	cursor: pointer;
 `;

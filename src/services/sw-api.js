@@ -9,4 +9,5 @@ export const getAllStarships = async req => {
     })
 
     return starships;
+    // console.log(ships)
 };

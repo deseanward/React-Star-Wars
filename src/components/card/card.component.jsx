@@ -3,20 +3,18 @@ import Modal from '../modal/modal.component';
 import { Button, CardContainer } from './card.styles';
 
 const StarWarsCard = ({ ship }) => {
-	const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState('false');
 
 	const handleOpen = e => {
 		e.preventDefault();
 
-		setShowModal(true);
-		console.log(showModal);
+		setShowModal('true');
 	};
 
 	const handleClose = e => {
 		e.preventDefault();
 
-		setShowModal(false);
-		console.log(showModal);
+		setShowModal('false');
 	};
 
 	return (
