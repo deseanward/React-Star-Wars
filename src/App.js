@@ -4,6 +4,7 @@ import { getAllStarships } from './services/sw-api';
 import './App.css';
 import StarWarsCard from './components/card/card.component';
 import Pagination from './components/pagination/pagination.component';
+import Loading from './components/loading/loading.component';
 
 function App() {
 	const [starships, setStarships] = useState(null);
@@ -52,7 +53,7 @@ function App() {
 							<StarWarsCard key={ship.name} ship={ship} />
 						))
 					) : (
-						<h1>Loading Starships...</h1>
+						<Loading />
 					)}
 				</div>
 			</main>
