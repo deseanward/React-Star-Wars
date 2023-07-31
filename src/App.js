@@ -7,6 +7,9 @@ import StarWarsCard from './components/card/card.component';
 function App() {
 	const [starships, setStarships] = useState(null);
 	const [gotShips, setGotShips] = useState(false);
+  const [showModal, setShowModal] = useState(true);
+
+	const modal = document.querySelector('#myModal');
 
 	// API call to get all of the starships upon page load
 	useEffect(() => {
@@ -35,9 +38,13 @@ function App() {
 			<main>
 				<div id='cards'>
 					{starships ? (
-						starships.map(ship => {
-              return <StarWarsCard key={ship.name} ship={ship}  />
-						})
+						starships.map(ship => (
+							<StarWarsCard
+								key={ship.name}
+								ship={ship}
+								modal={modal}
+							/>
+						))
 					) : (
 						<h1>Loading Starships...</h1>
 					)}
